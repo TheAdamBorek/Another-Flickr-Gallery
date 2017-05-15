@@ -8,10 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		1F0FA078ABD9E0429E7A1624 /* Moya+Argo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FAB308BCB1C5178C26B30 /* Moya+Argo.swift */; };
+		1F0FA1478FF9009DC4054C7B /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FAC96BF66AFD4BA199A52 /* GalleryViewController.swift */; };
 		1F0FA2C59AB31887934EBBE1 /* JSONPNormalizationPluginSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FAEFF71DBEE1EEAA83FFA /* JSONPNormalizationPluginSpec.swift */; };
+		1F0FA566B728B8A2500C22BA /* NibHaving.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FA4295D3475879182069C /* NibHaving.swift */; };
 		1F0FA6ECA75803270BC6F2FC /* DecodableAPIClientSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FAD2ABAE066EE173F9F46 /* DecodableAPIClientSpec.swift */; };
 		1F0FA9E32BD2C0A8E9FFE9F4 /* GetPublicFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FAFECFD8287473F147125 /* GetPublicFeed.swift */; };
 		1F0FACC96ADBDDBD09E1FBC3 /* FlickrJSONPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FADCFA77908319AD9CC80 /* FlickrJSONPlugin.swift */; };
+		1F0FAD72A44815E75B4F4D23 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FAD46ACDFECF4649972D8 /* ReusableView.swift */; };
 		1F0FADFECE4507D6B8391CB2 /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FA3F2868725D6D2418FFE /* Assembly.swift */; };
 		1F0FAF74C05433330B6BFCEA /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FAD2511DA35C738E12E01 /* APIClient.swift */; };
 		3F2AA74A694B8328542B7E13 /* Pods_Another_Flickr_GalleryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659AC3C796FD8EB8C6739DC1 /* Pods_Another_Flickr_GalleryTests.framework */; };
@@ -35,9 +38,12 @@
 /* Begin PBXFileReference section */
 		0CFBBCBEEACCEFBA42EBAF99 /* Pods_Another_Flickr_Gallery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Another_Flickr_Gallery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F0FA3F2868725D6D2418FFE /* Assembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
+		1F0FA4295D3475879182069C /* NibHaving.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibHaving.swift; sourceTree = "<group>"; };
 		1F0FAB308BCB1C5178C26B30 /* Moya+Argo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+Argo.swift"; sourceTree = "<group>"; };
+		1F0FAC96BF66AFD4BA199A52 /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		1F0FAD2511DA35C738E12E01 /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		1F0FAD2ABAE066EE173F9F46 /* DecodableAPIClientSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodableAPIClientSpec.swift; sourceTree = "<group>"; };
+		1F0FAD46ACDFECF4649972D8 /* ReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
 		1F0FADCFA77908319AD9CC80 /* FlickrJSONPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrJSONPlugin.swift; sourceTree = "<group>"; };
 		1F0FAEFF71DBEE1EEAA83FFA /* JSONPNormalizationPluginSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONPNormalizationPluginSpec.swift; sourceTree = "<group>"; };
 		1F0FAFECFD8287473F147125 /* GetPublicFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetPublicFeed.swift; sourceTree = "<group>"; };
@@ -99,9 +105,19 @@
 			path = APIConnection;
 			sourceTree = "<group>";
 		};
+		1F0FA3A5F5D9DC8FC58CADCF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1F0FAD46ACDFECF4649972D8 /* ReusableView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		1F0FA57610A94D5C92D7B126 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				1F0FAE3571DFB58A0185B022 /* Protocols */,
+				1F0FA3A5F5D9DC8FC58CADCF /* Views */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -119,6 +135,7 @@
 			children = (
 				1F0FA2558EA413D8197B5927 /* APIConnection */,
 				1F0FA65535CEC0AA43A66561 /* DependencyInjection */,
+				1F0FAC2960BBB11EB8D8307F /* GalleryFeed */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -130,6 +147,22 @@
 				1F0FAEFF71DBEE1EEAA83FFA /* JSONPNormalizationPluginSpec.swift */,
 			);
 			path = APIConnection;
+			sourceTree = "<group>";
+		};
+		1F0FAC2960BBB11EB8D8307F /* GalleryFeed */ = {
+			isa = PBXGroup;
+			children = (
+				1F0FAC96BF66AFD4BA199A52 /* GalleryViewController.swift */,
+			);
+			path = GalleryFeed;
+			sourceTree = "<group>";
+		};
+		1F0FAE3571DFB58A0185B022 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				1F0FA4295D3475879182069C /* NibHaving.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		1F0FAEA041A802434C11E2C7 /* Modules */ = {
@@ -407,6 +440,9 @@
 				1F0FA9E32BD2C0A8E9FFE9F4 /* GetPublicFeed.swift in Sources */,
 				1F0FADFECE4507D6B8391CB2 /* Assembly.swift in Sources */,
 				1F0FACC96ADBDDBD09E1FBC3 /* FlickrJSONPlugin.swift in Sources */,
+				1F0FA1478FF9009DC4054C7B /* GalleryViewController.swift in Sources */,
+				1F0FA566B728B8A2500C22BA /* NibHaving.swift in Sources */,
+				1F0FAD72A44815E75B4F4D23 /* ReusableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
