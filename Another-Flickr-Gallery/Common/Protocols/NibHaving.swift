@@ -4,6 +4,8 @@
 //
 
 import Foundation
+import UIKit
+
 protocol NibHaving {
     static var nibName: String { get }
 }
@@ -21,4 +23,3 @@ extension NibHaving where Self: UIView {
         return UINib(nibName: nibName, bundle: nil)
     }
 }
-

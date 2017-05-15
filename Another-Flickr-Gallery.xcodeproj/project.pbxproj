@@ -12,6 +12,7 @@
 		1F0FA2C59AB31887934EBBE1 /* JSONPNormalizationPluginSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FAEFF71DBEE1EEAA83FFA /* JSONPNormalizationPluginSpec.swift */; };
 		1F0FA566B728B8A2500C22BA /* NibHaving.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FA4295D3475879182069C /* NibHaving.swift */; };
 		1F0FA6ECA75803270BC6F2FC /* DecodableAPIClientSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FAD2ABAE066EE173F9F46 /* DecodableAPIClientSpec.swift */; };
+		1F0FA8E5E87F012295634B2C /* GalleryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0FA060E48C3EC1D6D70259 /* GalleryViewController.xib */; };
 		1F0FA9E32BD2C0A8E9FFE9F4 /* GetPublicFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FAFECFD8287473F147125 /* GetPublicFeed.swift */; };
 		1F0FACC96ADBDDBD09E1FBC3 /* FlickrJSONPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FADCFA77908319AD9CC80 /* FlickrJSONPlugin.swift */; };
 		1F0FAD72A44815E75B4F4D23 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FAD46ACDFECF4649972D8 /* ReusableView.swift */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		0CFBBCBEEACCEFBA42EBAF99 /* Pods_Another_Flickr_Gallery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Another_Flickr_Gallery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F0FA060E48C3EC1D6D70259 /* GalleryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GalleryViewController.xib; sourceTree = "<group>"; };
 		1F0FA3F2868725D6D2418FFE /* Assembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
 		1F0FA4295D3475879182069C /* NibHaving.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibHaving.swift; sourceTree = "<group>"; };
 		1F0FAB308BCB1C5178C26B30 /* Moya+Argo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+Argo.swift"; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				1F0FAC96BF66AFD4BA199A52 /* GalleryViewController.swift */,
+				1F0FA060E48C3EC1D6D70259 /* GalleryViewController.xib */,
 			);
 			path = GalleryFeed;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 			files = (
 				66D990BF1EC986CE00656E15 /* LaunchScreen.storyboard in Resources */,
 				66D990BC1EC986CE00656E15 /* Assets.xcassets in Resources */,
+				1F0FA8E5E87F012295634B2C /* GalleryViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
