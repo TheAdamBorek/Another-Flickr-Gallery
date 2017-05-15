@@ -1,0 +1,53 @@
+PODS:
+  - Fakery (2.0.0)
+  - Kingfisher (3.7.2)
+  - NSObject+Rx (2.1.0):
+    - RxSwift
+  - RxBlocking (3.4.1):
+    - RxSwift (~> 3.4)
+  - RxCocoa (3.4.1):
+    - RxSwift (~> 3.4)
+  - RxDataSources (1.0.3):
+    - RxCocoa (~> 3.0)
+    - RxSwift (~> 3.0)
+  - RxGesture (1.0.1):
+    - RxCocoa (~> 3.4)
+    - RxSwift (~> 3.4)
+  - RxSwift (3.4.1)
+  - RxSwiftExt (2.4.1):
+    - RxSwiftExt/Core (= 2.4.1)
+  - RxSwiftExt/Core (2.4.1):
+    - RxSwift (~> 3.4)
+  - RxTest (3.4.1):
+    - RxSwift (~> 3.4)
+  - Whisper (5.0.0)
+
+DEPENDENCIES:
+  - Fakery
+  - Kingfisher
+  - NSObject+Rx
+  - RxBlocking
+  - RxCocoa
+  - RxDataSources
+  - RxGesture
+  - RxSwift
+  - RxSwiftExt
+  - RxTest
+  - Whisper
+
+SPEC CHECKSUMS:
+  Fakery: 97b99c23937d2e025d9135c75e2b17351ccd5031
+  Kingfisher: 5ddc4ac715615cc200de9fdc54ab1511061ea650
+  NSObject+Rx: 09277ba78aa12a8e454c82429eb4e31bfb413131
+  RxBlocking: 1e8c41cfe7ca2fc0e19d0e616c553845c63cbbd3
+  RxCocoa: a8a5f1d061d0043e28f56976829f31ce63e8eb09
+  RxDataSources: a021a0e944ba5f7991259829d973afdbfa719c0b
+  RxGesture: 1f770b247c69e8133fb8f4ef263571efd0ae91a1
+  RxSwift: 656f8fbeca5bc372121a72d9ebdd3cd3bc0ffade
+  RxSwiftExt: 72278e4a84f35324a82a8dd359859782706576a6
+  RxTest: a6fd6e4069face7c6488f96f6c42296b3e44db48
+  Whisper: 051f25e704bf8992641ffd28b20d5682ddc5f5d3
+
+PODFILE CHECKSUM: 850ea4946514dc8c83876f2619fad2ca07d06f21
+
+COCOAPODS: 1.2.1
