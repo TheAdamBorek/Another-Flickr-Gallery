@@ -15,7 +15,7 @@ target 'Another-Flickr-Gallery' do
   rxswift()
   pod 'Kingfisher'
   pod 'Whisper'
-  pod 'Moya'
+  pod 'Moya/RxSwift'
   pod 'Argo'
   pod 'Curry'
 
