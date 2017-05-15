@@ -5,11 +5,12 @@ PODS:
   - Curry (3.0.0)
   - Fakery (2.0.0)
   - Kingfisher (3.7.2)
-  - Moya (8.0.4):
-    - Moya/Core (= 8.0.4)
   - Moya/Core (8.0.4):
     - Alamofire (~> 4.1)
     - Result (~> 3.0)
+  - Moya/RxSwift (8.0.4):
+    - Moya/Core
+    - RxSwift (~> 3.0)
   - Nimble (7.0.0)
   - NSObject+Rx (2.1.0):
     - RxSwift
@@ -40,7 +41,7 @@ DEPENDENCIES:
   - Curry
   - Fakery
   - Kingfisher
-  - Moya
+  - Moya/RxSwift
   - Nimble
   - NSObject+Rx
   - Quick
@@ -74,6 +75,6 @@ SPEC CHECKSUMS:
   RxTest: a6fd6e4069face7c6488f96f6c42296b3e44db48
   Whisper: 051f25e704bf8992641ffd28b20d5682ddc5f5d3
 
-PODFILE CHECKSUM: 033c6ca341345e620075a83684e9731c91793af3
+PODFILE CHECKSUM: bf8ebbd90227f6b8756934057080511869e80579
 
 COCOAPODS: 1.2.1
