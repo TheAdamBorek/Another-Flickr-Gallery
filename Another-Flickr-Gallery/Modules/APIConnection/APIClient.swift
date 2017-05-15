@@ -56,15 +56,16 @@ final class APIClient: APIConnection {
         case cannotCreateBaseURL
     }
 
-    private let provider: RxMoyaProvider<APIRequestAdapter> = RxMoyaProvider()
+    private let provider: RxMoyaProvider<APIRequestAdapter>
     private let baseURL: URL
 
-    init(baseURL: String) throws {
+    init(baseURL: String, plugins: [PluginType] = []) throws {
         guard let url = URL(string: baseURL) else {
             throw Error.cannotCreateBaseURL
         }
 
         self.baseURL = url
+        self.provider = RxMoyaProvider(plugins: plugins)
     }
 
     func send(_ request: APIRequest) -> Observable<Any> {
