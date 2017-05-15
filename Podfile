@@ -15,6 +15,9 @@ target 'Another-Flickr-Gallery' do
   rxswift()
   pod 'Kingfisher'
   pod 'Whisper'
+  pod 'Moya'
+  pod 'Argo'
+  pod 'Curry'
 
   target 'Another-Flickr-GalleryTests' do
     inherit! :search_paths

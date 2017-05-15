@@ -1,10 +1,21 @@
 PODS:
+  - Alamofire (4.4.0)
+  - Argo (4.1.2):
+    - Runes (>= 4.0.0)
+  - Curry (3.0.0)
   - Fakery (2.0.0)
   - Kingfisher (3.7.2)
+  - Moya (8.0.4):
+    - Moya/Core (= 8.0.4)
+  - Moya/Core (8.0.4):
+    - Alamofire (~> 4.1)
+    - Result (~> 3.0)
   - Nimble (7.0.0)
   - NSObject+Rx (2.1.0):
     - RxSwift
   - Quick (1.1.0)
+  - Result (3.2.1)
+  - Runes (4.0.1)
   - RxBlocking (3.4.1):
     - RxSwift (~> 3.4)
   - RxCocoa (3.4.1):
@@ -25,8 +36,11 @@ PODS:
   - Whisper (5.0.0)
 
 DEPENDENCIES:
+  - Argo
+  - Curry
   - Fakery
   - Kingfisher
+  - Moya
   - Nimble
   - NSObject+Rx
   - Quick
@@ -40,11 +54,17 @@ DEPENDENCIES:
   - Whisper
 
 SPEC CHECKSUMS:
+  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  Argo: 5db06502fc1222d83011f574243089dab25202ff
+  Curry: eb3d2c75aec678b3cc7fb2729d2ad6dd121531d1
   Fakery: 97b99c23937d2e025d9135c75e2b17351ccd5031
   Kingfisher: 5ddc4ac715615cc200de9fdc54ab1511061ea650
+  Moya: a08bc060c7a44eee27447b239ed33a189b641e2b
   Nimble: 874982b605d4d752fcac6be695d13c502de84b1b
   NSObject+Rx: 09277ba78aa12a8e454c82429eb4e31bfb413131
   Quick: dafc587e21eed9f4cab3249b9f9015b0b7a7f71d
+  Result: 2453a22e5c5b11c0c3a478736e82cd02f763b781
+  Runes: ff20f163b478ac2c0e18158d6086fd5b1997f983
   RxBlocking: 1e8c41cfe7ca2fc0e19d0e616c553845c63cbbd3
   RxCocoa: a8a5f1d061d0043e28f56976829f31ce63e8eb09
   RxDataSources: a021a0e944ba5f7991259829d973afdbfa719c0b
@@ -54,6 +74,6 @@ SPEC CHECKSUMS:
   RxTest: a6fd6e4069face7c6488f96f6c42296b3e44db48
   Whisper: 051f25e704bf8992641ffd28b20d5682ddc5f5d3
 
-PODFILE CHECKSUM: 53a1b1094e271c232a6dbbb3d698d972f57abb00
+PODFILE CHECKSUM: 033c6ca341345e620075a83684e9731c91793af3
 
 COCOAPODS: 1.2.1
