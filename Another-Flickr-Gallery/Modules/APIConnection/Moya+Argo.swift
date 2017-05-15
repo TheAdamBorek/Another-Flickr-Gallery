@@ -11,7 +11,7 @@ import RxSwift
 import Moya
 import Argo
 
-extension ObservableType where E == [String: Any] {
+extension ObservableType where E == Any {
 	func decode<T: Decodable>(rootKey: String? = nil) -> Observable<T> where T == T.DecodedType {
 		return map { try decodeJSON($0, rootKey: rootKey) }
 	}
@@ -21,37 +21,26 @@ extension ObservableType where E == [String: Any] {
 	}
 }
 
-extension ObservableType where E == [[String: Any]] {
-	func decode<T: Decodable>() -> Observable<[T]> where T == T.DecodedType {
-		return map(decodeJSONArray)
-	}
-}
-
-private func decodeJSON<T: Decodable>(_ json: [String: Any], rootKey: String? = nil) throws -> T where T == T.DecodedType {
+private func decodeJSON<T: Decodable>(_ json: Any, rootKey: String? = nil) throws -> T where T == T.DecodedType {
     let decoded: Decoded<T>
 
-	if let rootKey = rootKey {
-		decoded = Argo.decode(json, rootKey: rootKey)
-	} else {
-		decoded = Argo.decode(json)
-	}
+	if let json = json as? [String: Any], let rootKey = rootKey, !rootKey.isEmpty {
+        decoded = Argo.decode(json, rootKey: rootKey)
+    } else {
+        decoded = Argo.decode(json)
+    }
 
 	return try decoded.dematerialize()
 }
 
-private func decodeJSON<T: Decodable>(_ json: [String: Any], rootKey: String? = nil) throws -> [T] where T == T.DecodedType {
+private func decodeJSON<T: Decodable>(_ json: Any, rootKey: String? = nil) throws -> [T] where T == T.DecodedType {
 	let decoded: Decoded<[T]>
 
-	if let rootKey = rootKey {
+    if let json = json as? [String: Any], let rootKey = rootKey, !rootKey.isEmpty {
 		decoded = Argo.decode(json, rootKey: rootKey)
 	} else {
 		decoded = Argo.decode(json)
 	}
 
-	return try decoded.dematerialize()
-}
-
-private func decodeJSONArray<T: Decodable>(_ jsonArray: JSONArray) throws -> [T] where T == T.DecodedType {
-	let decoded: Decoded<[T]> = Argo.decode(jsonArray)
 	return try decoded.dematerialize()
 }

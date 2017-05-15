@@ -12,6 +12,7 @@
 
 target 'Another-Flickr-Gallery' do
   use_frameworks!
+  inhibit_all_warnings!
   rxswift()
   pod 'Kingfisher'
   pod 'Whisper'
@@ -21,6 +22,7 @@ target 'Another-Flickr-Gallery' do
 
   target 'Another-Flickr-GalleryTests' do
     inherit! :search_paths
+    inhibit_all_warnings!
     pod 'Fakery'
     pod 'RxBlocking'
     pod 'RxTest'

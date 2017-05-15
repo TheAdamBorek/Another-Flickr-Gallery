@@ -47,8 +47,7 @@ protocol APIConnection {
     * parameter request: Request to be sent
     * returns: Observable with result of NSJSONSerialization
     */
-    func send(_ request: APIRequest) -> Observable<[String: Any]>
-    func send(_ request: APIRequest) -> Observable<JSONArray>
+    func send(_ request: APIRequest) -> Observable<Any>
 }
 
 final class APIClient: APIConnection {
@@ -68,32 +67,11 @@ final class APIClient: APIConnection {
         self.baseURL = url
     }
 
-    func send(_ request: APIRequest) -> Observable<[String: Any]> {
+    func send(_ request: APIRequest) -> Observable<Any> {
         let requestAdapter = APIRequestAdapter(baseURL: baseURL, request: request)
         return provider
                 .request(requestAdapter)
-                .map(mapJSON)
-    }
-
-    private func mapJSON(_ response: Moya.Response) throws -> [String: Any] {
-        guard let json = (try response.mapJSON() as? [String: Any]) else {
-            throw MoyaError.jsonMapping(response)
-        }
-        return json
-    }
-
-    func send(_ request: APIRequest) -> Observable<JSONArray> {
-        let requestAdapter = APIRequestAdapter(baseURL: baseURL, request: request)
-        return provider
-            .request(requestAdapter)
-            .map(mapJSONArray)
-    }
-
-    private func mapJSONArray(_ response: Moya.Response) throws -> JSONArray {
-        guard let jsonArray = (try response.mapJSON() as? JSONArray) else {
-            throw MoyaError.jsonMapping(response)
-        }
-        return jsonArray
+                .map { try $0.mapJSON() }
     }
 }
 
