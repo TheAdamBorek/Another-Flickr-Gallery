@@ -1,8 +1,10 @@
 PODS:
   - Fakery (2.0.0)
   - Kingfisher (3.7.2)
+  - Nimble (7.0.0)
   - NSObject+Rx (2.1.0):
     - RxSwift
+  - Quick (1.1.0)
   - RxBlocking (3.4.1):
     - RxSwift (~> 3.4)
   - RxCocoa (3.4.1):
@@ -25,7 +27,9 @@ PODS:
 DEPENDENCIES:
   - Fakery
   - Kingfisher
+  - Nimble
   - NSObject+Rx
+  - Quick
   - RxBlocking
   - RxCocoa
   - RxDataSources
@@ -38,7 +42,9 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Fakery: 97b99c23937d2e025d9135c75e2b17351ccd5031
   Kingfisher: 5ddc4ac715615cc200de9fdc54ab1511061ea650
+  Nimble: 874982b605d4d752fcac6be695d13c502de84b1b
   NSObject+Rx: 09277ba78aa12a8e454c82429eb4e31bfb413131
+  Quick: dafc587e21eed9f4cab3249b9f9015b0b7a7f71d
   RxBlocking: 1e8c41cfe7ca2fc0e19d0e616c553845c63cbbd3
   RxCocoa: a8a5f1d061d0043e28f56976829f31ce63e8eb09
   RxDataSources: a021a0e944ba5f7991259829d973afdbfa719c0b
@@ -48,6 +54,6 @@ SPEC CHECKSUMS:
   RxTest: a6fd6e4069face7c6488f96f6c42296b3e44db48
   Whisper: 051f25e704bf8992641ffd28b20d5682ddc5f5d3
 
-PODFILE CHECKSUM: 850ea4946514dc8c83876f2619fad2ca07d06f21
+PODFILE CHECKSUM: 53a1b1094e271c232a6dbbb3d698d972f57abb00
 
 COCOAPODS: 1.2.1

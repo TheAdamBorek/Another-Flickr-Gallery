@@ -21,6 +21,8 @@ target 'Another-Flickr-Gallery' do
     pod 'Fakery'
     pod 'RxBlocking'
     pod 'RxTest'
+    pod 'Quick'
+    pod 'Nimble'
   end
 
 end
