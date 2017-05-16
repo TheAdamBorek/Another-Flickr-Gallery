@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GalleryViewController" customModule="Another_Flickr_Gallery" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="J7o-m8-dyC" id="kzJ-3c-zNN"/>
                 <outlet property="tableView" destination="eK4-X9-f3p" id="p41-Wb-ck7"/>
                 <outlet property="view" destination="iN0-l3-epB" id="4Fu-Mi-zZl"/>
             </connections>
@@ -24,6 +25,11 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="J7o-m8-dyC">
+                    <rect key="frame" x="169" y="315" width="37" height="37"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="tintColor" red="0.88235294119999996" green="0.8862745098" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>

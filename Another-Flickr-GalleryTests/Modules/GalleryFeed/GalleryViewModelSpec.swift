@@ -101,8 +101,9 @@ final class PhotosProvidingMock: PhotosMetaProviding {
     var didReceivePhotosCount = 0
     var givenPhotos: Observable<[PhotoMeta]> = .just(PhotoMeta.fakes(count: 5))
 
-    var photos: Observable<[PhotoMeta]> {
+    func photos(withTags tags: String) -> Observable<[PhotoMeta]> {
         return Observable.deferred {
+
             self.didReceivePhotosCount += 1
             return self.givenPhotos
         }

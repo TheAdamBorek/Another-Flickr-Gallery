@@ -8,6 +8,12 @@ import Moya
 //import Alamofire
 
 struct GetPublicFeed: APIRequest {
+    private let tagsFilter: [String]
+
+    init(tags: [String] = []) {
+        self.tagsFilter = tags
+    }
+
     var path: String {
         return "services/feeds/photos_public.gne"
     }
@@ -18,7 +24,8 @@ struct GetPublicFeed: APIRequest {
 
     var parameters: [String: Any]? {
         return [
-            "format": "json"
+            "format": "json",
+            "tags": tagsFilter.joined(separator: ",")
         ]
     }
 
@@ -26,3 +33,4 @@ struct GetPublicFeed: APIRequest {
         return URLEncoding()
     }
 }
+
