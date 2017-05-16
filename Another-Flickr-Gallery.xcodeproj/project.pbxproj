@@ -24,6 +24,7 @@
 		1F0FADFECE4507D6B8391CB2 /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FA3F2868725D6D2418FFE /* Assembly.swift */; };
 		1F0FAF74C05433330B6BFCEA /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FAD2511DA35C738E12E01 /* APIClient.swift */; };
 		3F2AA74A694B8328542B7E13 /* Pods_Another_Flickr_GalleryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 659AC3C796FD8EB8C6739DC1 /* Pods_Another_Flickr_GalleryTests.framework */; };
+		6696FC9E1ECAFBCA00FA007C /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6696FC9D1ECAFBCA00FA007C /* R.generated.swift */; };
 		66D990B51EC986CE00656E15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D990B41EC986CE00656E15 /* AppDelegate.swift */; };
 		66D990BC1EC986CE00656E15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66D990BB1EC986CE00656E15 /* Assets.xcassets */; };
 		66D990BF1EC986CE00656E15 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66D990BD1EC986CE00656E15 /* LaunchScreen.storyboard */; };
@@ -65,6 +66,7 @@
 		52D5E83DE94B5319452431AA /* Pods-Another-Flickr-GalleryTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Another-Flickr-GalleryTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Another-Flickr-GalleryTests/Pods-Another-Flickr-GalleryTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DA747B2D8ABEC7B82316C89 /* Pods-Another-Flickr-Gallery.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Another-Flickr-Gallery.release.xcconfig"; path = "Pods/Target Support Files/Pods-Another-Flickr-Gallery/Pods-Another-Flickr-Gallery.release.xcconfig"; sourceTree = "<group>"; };
 		659AC3C796FD8EB8C6739DC1 /* Pods_Another_Flickr_GalleryTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Another_Flickr_GalleryTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6696FC9D1ECAFBCA00FA007C /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		66D990B11EC986CE00656E15 /* Another-Flickr-Gallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Another-Flickr-Gallery.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		66D990B41EC986CE00656E15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		66D990BB1EC986CE00656E15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 		66D990A81EC986CE00656E15 = {
 			isa = PBXGroup;
 			children = (
+				6696FC9D1ECAFBCA00FA007C /* R.generated.swift */,
 				66D990B31EC986CE00656E15 /* Another-Flickr-Gallery */,
 				66D990C81EC986CE00656E15 /* Another-Flickr-GalleryTests */,
 				66D990B21EC986CE00656E15 /* Products */,
@@ -268,6 +271,7 @@
 			buildConfigurationList = 66D990CE1EC986CE00656E15 /* Build configuration list for PBXNativeTarget "Another-Flickr-Gallery" */;
 			buildPhases = (
 				5DC71885F2E7606D5B0D3E0C /* [CP] Check Pods Manifest.lock */,
+				6696FC9C1ECAFBB600FA007C /* Run R.swift */,
 				66D990AD1EC986CE00656E15 /* Sources */,
 				66D990AE1EC986CE00656E15 /* Frameworks */,
 				66D990AF1EC986CE00656E15 /* Resources */,
@@ -411,6 +415,20 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Another-Flickr-Gallery/Pods-Another-Flickr-Gallery-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		6696FC9C1ECAFBB600FA007C /* Run R.swift */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run R.swift";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" \"$SRCROOT\"";
+		};
 		993FE16D372DC5303BC00103 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -469,6 +487,7 @@
 				66D990D51EC99C7B00656E15 /* DecodableAPIClient.swift in Sources */,
 				1F0FA9E32BD2C0A8E9FFE9F4 /* GetPublicFeed.swift in Sources */,
 				1F0FADFECE4507D6B8391CB2 /* Assembly.swift in Sources */,
+				6696FC9E1ECAFBCA00FA007C /* R.generated.swift in Sources */,
 				1F0FACC96ADBDDBD09E1FBC3 /* FlickrJSONPlugin.swift in Sources */,
 				1F0FA1478FF9009DC4054C7B /* GalleryViewController.swift in Sources */,
 				1F0FA566B728B8A2500C22BA /* NibHaving.swift in Sources */,
