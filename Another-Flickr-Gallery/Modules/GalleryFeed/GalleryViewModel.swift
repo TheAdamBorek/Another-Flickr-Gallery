@@ -24,7 +24,7 @@ struct GalleryViewModel: GalleryViewModeling {
     let photos: Driver<[FlickrCellViewModeling]>
     let errorMessage: Driver<String>
 
-    init(photosProvider: PhotosMetaProviding) {
+    init(photosProvider: PhotosMetaProviding = GetFlickrPublicGalleryUseCase()) {
         let photosResult = photosProvider
                 .photos
                 .materialize()
@@ -47,12 +47,33 @@ protocol PhotosMetaProviding {
 }
 
 struct FlickrCellViewModel: FlickrCellViewModeling {
-    init(photoMeta: PhotoMeta) { }
+    private let photoMeta: PhotoMeta
 
-    private(set) var tags: String = ""
-    private(set) var title: String = ""
-    private(set) var authorName: String = ""
-    private(set) var createdAt: String = ""
-    private(set) var publishedAt: String = ""
+    init(photoMeta: PhotoMeta) {
+        self.photoMeta = photoMeta
+    }
+
+    var tags: String {
+         return photoMeta.tags
+            .map { "#\($0)" }
+            .joined(separator: " ")
+    }
+
+    var title: String {
+        return photoMeta.title
+    }
+
+    var authorName: String {
+        return ""
+    }
+
+    var createdAt: String {
+        return "Created at \(DateFormatter.dayMonthAndTime.string(from: photoMeta.createdAt))"
+    }
+
+    var publishedAt: String {
+        return "Published at \(DateFormatter.dayMonthAndTime.string(from: photoMeta.publishedAt))"
+    }
+
     private(set) var picture: Driver<UIImage> = .never()
 }

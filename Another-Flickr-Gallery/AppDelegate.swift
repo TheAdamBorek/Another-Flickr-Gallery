@@ -11,9 +11,15 @@ import RxSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    var window: UIWindow?
+    private let window: UIWindow = {
+        let window = UIWindow()
+        window.frame = UIScreen.main.bounds
+        return window
+    }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        window.rootViewController = GalleryViewController()
+        window.makeKeyAndVisible()
         return true
     }
 }

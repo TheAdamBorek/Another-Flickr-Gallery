@@ -12,3 +12,12 @@ extension ISO8601DateFormatter {
         return dateFormatter
     }()
 }
+
+extension DateFormatter {
+    static let dayMonthAndTime: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .medium
+        dateFormatter.dateStyle = .short
+        return dateFormatter
+    }()
+}
