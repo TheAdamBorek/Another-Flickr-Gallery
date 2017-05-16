@@ -33,7 +33,7 @@ final class ImageRetrieverAdapter: ImageRetrieving {
 
     func retrieveImage(for url: URL) -> Observable<UIImage> {
         return Observable.create { observer in
-            let imageTask = self.manager.retrieveImage(with: url, options: nil, progressBlock: nil) { image, error , _, _ in
+            let imageTask = self.manager.retrieveImage(with: url, options: nil, progressBlock: nil) { image, error, _, _ in
                 if let error = error {
                     observer.onError(error)
                     return

@@ -166,7 +166,6 @@ final class GalleryViewController: UIViewController {
             .disposed(by: rx_disposeBag)
     }
 
-
     private func bindTableViewData() {
         viewModel
             .photos

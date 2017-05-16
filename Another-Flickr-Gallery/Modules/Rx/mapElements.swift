@@ -27,4 +27,3 @@ extension SharedSequenceConvertibleType where SharingStrategy == DriverSharingSt
         }
     }
 }
-
