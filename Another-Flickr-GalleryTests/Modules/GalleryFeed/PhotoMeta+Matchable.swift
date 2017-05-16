@@ -4,3 +4,15 @@
 //
 
 import Foundation
+import Nimble
+@testable import Another_Flickr_Gallery
+
+extension PhotoMeta: Equatable {
+    public static func ==(lhs: PhotoMeta, rhs: PhotoMeta) -> Bool {
+        return lhs.title == rhs.title &&
+               lhs.tags == rhs.tags &&
+               lhs.imageURL == rhs.imageURL &&
+               lhs.createdAt == rhs.createdAt &&
+               lhs.publishedAt == rhs.publishedAt
+    }
+}

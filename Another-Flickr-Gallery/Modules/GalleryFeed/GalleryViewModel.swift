@@ -46,15 +46,6 @@ protocol PhotosMetaProviding {
     var photos: Observable<[PhotoMeta]> { get }
 }
 
-struct PhotoMeta {
-    let id: String
-    let title: String
-//    let tags: [String]
-//    let imageURL: String
-//    let createdAt: Date
-//    let publishedAt: Date
-}
-
 struct FlickrCellViewModel: FlickrCellViewModeling {
     init(photoMeta: PhotoMeta) { }
 

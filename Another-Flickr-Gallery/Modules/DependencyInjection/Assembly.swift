@@ -14,4 +14,8 @@ enum Assembly {
             fatalError("Cannot create apiClient: \(error)")
         }
     }()
+
+    static let decodableApiClient: DecodableAPIConnection = {
+        return DecodableAPIClient(apiClient: Assembly.apiClient)
+    }()
 }

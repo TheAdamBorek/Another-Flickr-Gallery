@@ -98,14 +98,6 @@ final class DummyRequest: APIRequest {
     private(set) var task: Task = .request
 }
 
-final class APIClientStub: APIConnection {
-    var jsonResponse: Observable<Any> = .just([:])
-
-    func send(_ request: APIRequest) -> Observable<Any> {
-        return jsonResponse
-    }
-}
-
 struct DummyDecodable: Decodable {
     let dummyIdField: String
     let dummyNameField: String

@@ -12,8 +12,11 @@ extension PhotoMeta: Fakable {
         return PhotoMeta.fake()
     }
 
-    static func fake(id: String = Faker().lorem.characters(amount: 20),
-            title: String = Faker().lorem.sentence(wordsAmount: 3)) -> PhotoMeta {
-        return PhotoMeta(id: id, title: title)
+    static func fake(title: String = Faker().lorem.sentence(wordsAmount: 3),
+            tags:[String] = [Faker().lorem.characters(amount: 1)],
+            imageURL: String = "http://lorempixel.com/200/200/",
+            createdAt: Date = Date(),
+            publishedAt: Date = Date()) -> PhotoMeta {
+        return PhotoMeta(title: title, tags: tags, imageURL: imageURL, createdAt: createdAt, publishedAt: publishedAt)
     }
 }
