@@ -92,7 +92,7 @@ final class DecodableAPIClientSpec: QuickSpec {
 final class DummyRequest: APIRequest {
     private(set) var path: String = ""
     private(set) var method: Moya.Method = .get
-    private(set) var parameters: [String: Any]? = nil
+    private(set) var parameters: [String: Any]?
     private(set) var parameterEncoding: ParameterEncoding = JSONEncoding()
     private(set) var validate: Bool = false
     private(set) var task: Task = .request

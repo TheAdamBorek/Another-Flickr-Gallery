@@ -399,6 +399,7 @@
 			buildConfigurationList = 66D990CE1EC986CE00656E15 /* Build configuration list for PBXNativeTarget "Another-Flickr-Gallery" */;
 			buildPhases = (
 				5DC71885F2E7606D5B0D3E0C /* [CP] Check Pods Manifest.lock */,
+				6647C74F1ECBC5FB00C7E1A0 /* Run Swiftlint */,
 				6696FC9C1ECAFBB600FA007C /* Run R.swift */,
 				66D990AD1EC986CE00656E15 /* Sources */,
 				66D990AE1EC986CE00656E15 /* Frameworks */,
@@ -543,6 +544,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Another-Flickr-Gallery/Pods-Another-Flickr-Gallery-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		6647C74F1ECBC5FB00C7E1A0 /* Run Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Swiftlint";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"";
 		};
 		6696FC9C1ECAFBB600FA007C /* Run R.swift */ = {
 			isa = PBXShellScriptBuildPhase;

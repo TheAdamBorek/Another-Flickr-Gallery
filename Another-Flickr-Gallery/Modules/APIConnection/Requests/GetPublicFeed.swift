@@ -33,4 +33,3 @@ struct GetPublicFeed: APIRequest {
         return URLEncoding()
     }
 }
-

@@ -42,6 +42,7 @@ PODS:
     - RxSwift (~> 3.4)
   - RxTest (3.4.1):
     - RxSwift (~> 3.4)
+  - SwiftLint (0.18.1)
   - Whisper (5.0.0)
 
 DEPENDENCIES:
@@ -62,6 +63,7 @@ DEPENDENCIES:
   - RxSwift
   - RxSwiftExt
   - RxTest
+  - SwiftLint
   - Whisper
 
 SPEC CHECKSUMS:
@@ -86,8 +88,9 @@ SPEC CHECKSUMS:
   RxSwift: 656f8fbeca5bc372121a72d9ebdd3cd3bc0ffade
   RxSwiftExt: 72278e4a84f35324a82a8dd359859782706576a6
   RxTest: a6fd6e4069face7c6488f96f6c42296b3e44db48
+  SwiftLint: b467d08f5b25dc3b3cfed243d8e1b74b91714c67
   Whisper: 051f25e704bf8992641ffd28b20d5682ddc5f5d3
 
-PODFILE CHECKSUM: bc4c22355d3997b90bd6ecc0b1d97e091977029e
+PODFILE CHECKSUM: a6b5f516511f8d59754b8d10a07fd2e70e6aafbf
 
 COCOAPODS: 1.2.1

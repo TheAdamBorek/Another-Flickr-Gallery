@@ -8,7 +8,7 @@ import Nimble
 @testable import Another_Flickr_Gallery
 
 extension PhotoMeta: Equatable {
-    public static func ==(lhs: PhotoMeta, rhs: PhotoMeta) -> Bool {
+    public static func == (lhs: PhotoMeta, rhs: PhotoMeta) -> Bool {
         return lhs.title == rhs.title &&
                lhs.authorName == rhs.authorName &&
                lhs.tags == rhs.tags &&

@@ -20,6 +20,7 @@ target 'Another-Flickr-Gallery' do
   pod 'Argo'
   pod 'Curry'
   pod 'R.swift'
+  pod 'SwiftLint'
 
   target 'Another-Flickr-GalleryTests' do
     inherit! :search_paths

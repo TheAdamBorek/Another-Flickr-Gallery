@@ -11,7 +11,7 @@ protocol Fakable {
 
 extension Fakable {
     static func fakes(count: Int = 5) -> [Self] {
-        var array = Array<Self>()
+        var array = [Self]()
         for _ in 0..<count {
             array.append(Self.fake)
         }
