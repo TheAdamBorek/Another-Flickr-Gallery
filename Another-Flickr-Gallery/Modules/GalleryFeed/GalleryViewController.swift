@@ -13,7 +13,7 @@ final class GalleryViewController: UIViewController {
     }
 
     @available(*, unavailable)
-    public init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init?(code: NSCoder) is not available.")
     }
 }
