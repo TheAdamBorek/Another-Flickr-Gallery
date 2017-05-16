@@ -32,7 +32,7 @@ struct FlickrCellViewModel: FlickrCellViewModeling {
     }
 
     var authorName: String {
-        return ""
+        return photoMeta.authorName
     }
 
     var createdAt: String {

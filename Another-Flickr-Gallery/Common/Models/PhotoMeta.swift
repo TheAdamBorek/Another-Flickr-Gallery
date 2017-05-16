@@ -10,6 +10,7 @@ import Runes
 
 struct PhotoMeta {
     let title: String
+    let authorName: String
     let tags: [String]
     let imageURL: String
     let createdAt: Date
@@ -20,11 +21,23 @@ extension PhotoMeta: Decodable {
     static func decode(_ json: JSON) -> Decoded<PhotoMeta> {
         return curry(PhotoMeta.init)
             <^> json <| "title"
+            <*> (parseAuthorName <^> json <| "author")
             <*> (createTagsArray <^> json <| "tags")
             <*> json <| ["media", "m"]
             <*> (parseDate -<< json <| "date_taken")
             <*> (parseDate -<< json <| "published")
     }
+}
+
+private func parseAuthorName(string: String) -> String {
+    guard let emailPrefixRange = string.range(of: "nobody@flickr.com (\""),
+          let closingBracketRange = string.range(of: "\")", options: .backwards) else {
+        return string
+    }
+
+    return string
+        .replacingCharacters(in: closingBracketRange, with: "")
+        .replacingCharacters(in: emailPrefixRange, with: "")
 }
 
 private func createTagsArray(tags: String) -> [String] {
