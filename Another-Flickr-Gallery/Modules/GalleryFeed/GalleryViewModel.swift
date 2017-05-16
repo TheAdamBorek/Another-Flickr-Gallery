@@ -32,7 +32,7 @@ struct GalleryViewModel: GalleryViewModeling {
 
         photos = photosResult
             .elements()
-            .mapElements(FlickrCellViewModel.init)
+            .mapElements { FlickrCellViewModel(photoMeta: $0) }
             .asDriver(onErrorJustReturn: [])
 
         errorMessage = photosResult
@@ -44,36 +44,4 @@ struct GalleryViewModel: GalleryViewModeling {
 
 protocol PhotosMetaProviding {
     var photos: Observable<[PhotoMeta]> { get }
-}
-
-struct FlickrCellViewModel: FlickrCellViewModeling {
-    private let photoMeta: PhotoMeta
-
-    init(photoMeta: PhotoMeta) {
-        self.photoMeta = photoMeta
-    }
-
-    var tags: String {
-         return photoMeta.tags
-            .map { "#\($0)" }
-            .joined(separator: " ")
-    }
-
-    var title: String {
-        return photoMeta.title
-    }
-
-    var authorName: String {
-        return ""
-    }
-
-    var createdAt: String {
-        return "Created at \(DateFormatter.dayMonthAndTime.string(from: photoMeta.createdAt))"
-    }
-
-    var publishedAt: String {
-        return "Published at \(DateFormatter.dayMonthAndTime.string(from: photoMeta.publishedAt))"
-    }
-
-    private(set) var picture: Driver<UIImage> = .never()
 }

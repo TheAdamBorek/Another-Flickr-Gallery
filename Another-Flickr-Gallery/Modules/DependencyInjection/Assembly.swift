@@ -18,4 +18,6 @@ enum Assembly {
     static let decodableApiClient: DecodableAPIConnection = {
         return DecodableAPIClient(apiClient: Assembly.apiClient)
     }()
+
+    static let imageRetrieving: ImageRetrieving = ImageRetrieverAdapter()
 }
