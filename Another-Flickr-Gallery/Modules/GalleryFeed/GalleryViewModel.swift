@@ -31,11 +31,12 @@ struct GalleryViewModel: GalleryViewModeling {
     fileprivate let _didPullToRefresh = PublishSubject<Void>()
     private let photosResult: Observable<Event<[PhotoMeta]>>
 
-    init(photosProvider: PhotosMetaProviding = GetFlickrPublicGalleryUseCase()) {
+    init(photosProvider: PhotosMetaProviding = GetFlickrPublicGalleryUseCase(),
+         timeBasedActionsScheduler: SchedulerType = MainScheduler.instance) {
         let activityTracker = ActivityTracker()
 
         let delayedTagsQuery = _didChangeTagsQuery
-            .debounce(0.3, scheduler: MainScheduler.instance)
+            .debounce(0.3, scheduler: timeBasedActionsScheduler)
 
         let photosRequest = Observable
             .of(delayedTagsQuery, _didPullToRefresh.mapTo(""))
