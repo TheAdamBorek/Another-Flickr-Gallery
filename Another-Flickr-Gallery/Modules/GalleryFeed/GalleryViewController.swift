@@ -11,11 +11,14 @@ import RxDataSources
 import NSObject_Rx
 
 final class GalleryViewController: UIViewController {
+    private weak var refreshControl: UIRefreshControl!
     @IBOutlet private weak var tableView: UITableView! {
         didSet {
             tableView.register(cell: FlickrImageTableViewCell.self)
             tableView.rowHeight = 270
             tableView.tableFooterView = UIView()
+            tableView.allowsSelection = false
+            configurePullToRefreshIndicator()
         }
     }
 
@@ -34,17 +37,50 @@ final class GalleryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureDataSource()
+        bindWithViewModel()
+    }
 
+    private func configureDataSource() {
         dataSource.configureCell = { _, tableView, indexPath, cellViewModel in
             let cell: FlickrImageTableViewCell = tableView.dequeueCell(at: indexPath)
             cell.bind(with: cellViewModel)
             return cell
         }
+    }
+
+    private func bindWithViewModel() {
+        viewModel
+                .photos
+                .map { [GallerySectionModel(items: $0)] }
+                .drive(tableView.rx.items(dataSource: dataSource))
+                .disposed(by: rx_disposeBag)
 
         viewModel
-            .photos
-            .map { [GallerySectionModel(items: $0)] }
-            .drive(tableView.rx.items(dataSource: dataSource))
+                .isLoading
+                .filter { !$0 }
+                .drive(onNext: { [refreshControl] _ in
+                    refreshControl?.endRefreshing()
+                })
+                .disposed(by: rx_disposeBag)
+    }
+
+    private func configurePullToRefreshIndicator() {
+        let pullToRefreshControl = UIRefreshControl()
+        self.refreshControl = pullToRefreshControl
+        tableView.refreshControl = pullToRefreshControl
+
+        let isRefreshing = pullToRefreshControl.rx
+            .controlEvent(.valueChanged)
+            .map { [unowned pullToRefreshControl] in
+                return pullToRefreshControl.isRefreshing
+            }
+
+
+        isRefreshing
+            .filter { $0 }
+            .mapTo(())
+            .bind(to: viewModel.didPullToRefresh)
             .disposed(by: rx_disposeBag)
     }
 }

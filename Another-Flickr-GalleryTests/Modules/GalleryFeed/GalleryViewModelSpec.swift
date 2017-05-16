@@ -8,6 +8,7 @@ import Quick
 import Nimble
 import RxSwift
 import RxCocoa
+import RxTest
 import NSObject_Rx
 import RxBlocking
 
@@ -54,6 +55,42 @@ final class GalleryViewModelSpec: QuickSpec {
                     photosProviderMock.givenPhotos = .error(NSError(domain: "dummy", code: -101))
                     let message = try! subject.errorMessage.toBlocking().first()!
                     expect(message).to(equal("Oops! An error has occurred. Try again later!"))
+                }
+            }
+
+            describe("pull to refresh") {
+                it("forces a refresh of photos") {
+                    let testScheduler = TestScheduler(initialClock: 0)
+                    photosProviderMock.givenPhotos = testScheduler.createColdObservable([next(100, [PhotoMeta.fake]), completed(100)]).asObservable()
+                    let observer = testScheduler.createObserver([FlickrCellViewModeling].self)
+
+                    subject.photos.drive(observer).disposed(by: disposeBag)
+
+                    testScheduler.scheduleAt(200) {
+                        subject.didPullToRefresh.onNext(())
+                    }
+                    testScheduler.start()
+
+                    expect(observer.events.map { $0.time }) == [100, 300]
+                }
+            }
+
+            describe("isLoading") {
+                it("indicates if there is any action ongoing") {
+                    let testScheduler = TestScheduler(initialClock: 0, simulateProcessingDelay: false)
+                    photosProviderMock.givenPhotos = testScheduler.createColdObservable([next(100, [PhotoMeta.fake]), completed(100)]).asObservable()
+                    driveOnScheduler(testScheduler) { recreateSubjectUnderTest() }
+
+                    let observer = testScheduler.createObserver(Bool.self)
+                    subject.photos.drive().disposed(by: disposeBag)
+
+                    subject.isLoading.drive(observer).disposed(by: disposeBag)
+                    testScheduler.start()
+
+                    XCTAssertEqual(observer.events, [
+                        next(0, true),
+                        next(100, false)
+                        ])
                 }
             }
         }
