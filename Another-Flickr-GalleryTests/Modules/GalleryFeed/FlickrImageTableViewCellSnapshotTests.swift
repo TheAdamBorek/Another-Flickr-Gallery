@@ -12,7 +12,6 @@ import RxCocoa
 final class FlickrImageTableViewCellSnapshotTests: SnapshotTestCase {
     override func setUp() {
         super.setUp()
-        recordMode = true
     }
 
     func test_verifyTableViewCell() {
@@ -29,5 +28,5 @@ final class SnapshotFlickrImageCellViewModel: FlickrCellViewModeling {
     let authorName: String = "The author"
     let createdAt: String = "Created at 12-05-2017 13:24"
     let publishedAt: String = "Published at 12-05-2017 15:01"
-    let picture: Driver<UIImage> = .just(UIImage(named: "dummy_image")!)
+    let picture: Driver<UIImage> = .just(R.image.dummy_image.asImage())
 }
