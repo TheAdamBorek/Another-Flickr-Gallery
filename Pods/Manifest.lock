@@ -4,6 +4,11 @@ PODS:
     - Runes (>= 4.0.0)
   - Curry (3.0.0)
   - Fakery (2.0.0)
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
+    - FBSnapshotTestCase/Core
   - Kingfisher (3.7.2)
   - Moya/Core (8.0.4):
     - Alamofire (~> 4.1)
@@ -15,6 +20,9 @@ PODS:
   - NSObject+Rx (2.1.0):
     - RxSwift
   - Quick (1.1.0)
+  - R.swift (3.2.0):
+    - R.swift.Library (~> 3.0.2)
+  - R.swift.Library (3.0.2)
   - Result (3.2.1)
   - Runes (4.0.1)
   - RxBlocking (3.4.1):
@@ -40,11 +48,13 @@ DEPENDENCIES:
   - Argo
   - Curry
   - Fakery
+  - FBSnapshotTestCase
   - Kingfisher
   - Moya/RxSwift
   - Nimble
   - NSObject+Rx
   - Quick
+  - R.swift
   - RxBlocking
   - RxCocoa
   - RxDataSources
@@ -59,11 +69,14 @@ SPEC CHECKSUMS:
   Argo: 5db06502fc1222d83011f574243089dab25202ff
   Curry: eb3d2c75aec678b3cc7fb2729d2ad6dd121531d1
   Fakery: 97b99c23937d2e025d9135c75e2b17351ccd5031
+  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   Kingfisher: 5ddc4ac715615cc200de9fdc54ab1511061ea650
   Moya: a08bc060c7a44eee27447b239ed33a189b641e2b
   Nimble: 874982b605d4d752fcac6be695d13c502de84b1b
   NSObject+Rx: 09277ba78aa12a8e454c82429eb4e31bfb413131
   Quick: dafc587e21eed9f4cab3249b9f9015b0b7a7f71d
+  R.swift: 207a372a2b5977caef440c696a368009460641d1
+  R.swift.Library: fbdec16c9802ad104fc1ba53415dc190e6ec5c73
   Result: 2453a22e5c5b11c0c3a478736e82cd02f763b781
   Runes: ff20f163b478ac2c0e18158d6086fd5b1997f983
   RxBlocking: 1e8c41cfe7ca2fc0e19d0e616c553845c63cbbd3
@@ -75,6 +88,6 @@ SPEC CHECKSUMS:
   RxTest: a6fd6e4069face7c6488f96f6c42296b3e44db48
   Whisper: 051f25e704bf8992641ffd28b20d5682ddc5f5d3
 
-PODFILE CHECKSUM: bf8ebbd90227f6b8756934057080511869e80579
+PODFILE CHECKSUM: bc4c22355d3997b90bd6ecc0b1d97e091977029e
 
 COCOAPODS: 1.2.1
