@@ -12,11 +12,18 @@ import NSObject_Rx
 import Whisper
 
 final class GalleryViewController: UIViewController {
+    private enum Strings {
+        static let orderByCreatedDate = NSLocalizedString("Created date", comment: "")
+        static let orderByPublishDate = NSLocalizedString("Publish date", comment: "")
+    }
+
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView! {
         didSet {
             activityIndicator.color = .gray
         }
     }
+
+    @IBOutlet private weak var segmentedControl: UISegmentedControl!
     private weak var refreshControl: UIRefreshControl!
     @IBOutlet private weak var tableView: UITableView! {
         didSet {
@@ -44,6 +51,7 @@ final class GalleryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSearchBar()
+        setupTranslations()
         configureDataSource()
         bindWithViewModel()
     }
@@ -68,14 +76,19 @@ final class GalleryViewController: UIViewController {
 
     private func bindSearchBarWithViewModel(_ searchBar: UISearchBar) {
         searchBar.rx.cancelButtonClicked
-            .subscribe(onNext: { [unowned searchBar] in
-                searchBar.resignFirstResponder()
-            })
-            .disposed(by: rx_disposeBag)
+                .subscribe(onNext: { [unowned searchBar] in
+                    searchBar.resignFirstResponder()
+                })
+                .disposed(by: rx_disposeBag)
 
         searchBar.rx.text.orEmpty
-            .bind(to: viewModel.didChangeTagsQuery)
-            .disposed(by: rx_disposeBag)
+                .bind(to: viewModel.didChangeTagsQuery)
+                .disposed(by: rx_disposeBag)
+    }
+
+    private func setupTranslations() {
+        segmentedControl.setTitle(Strings.orderByCreatedDate, forSegmentAt: 0)
+        segmentedControl.setTitle(Strings.orderByPublishDate, forSegmentAt: 1)
     }
 
     private func configureDataSource() {
@@ -87,25 +100,13 @@ final class GalleryViewController: UIViewController {
     }
 
     private func bindWithViewModel() {
-        bindLoading()
-
-        viewModel
-                .photos
-                .map { [GallerySectionModel(items: $0)] }
-                .drive(tableView.rx.items(dataSource: dataSource))
-                .disposed(by: rx_disposeBag)
-
-        viewModel
-                .errorMessage
-                .map { Message(title: $0, textColor: .white, backgroundColor: .red, images: nil) }
-                .drive(onNext: { [weak self] message in
-                    guard let navigationController = self?.navigationController else { return }
-                    Whisper.show(whisper: message, to: navigationController, action: .show)
-                })
-                .disposed(by: rx_disposeBag)
+        bindLoadingIndicatorState()
+        bindOrderBySegmenetedControl()
+        bindErrorMessages()
+        bindTableViewData()
     }
 
-    private func bindLoading() {
+    private func bindLoadingIndicatorState() {
         viewModel
             .isLoading
             .filter { !$0 }
@@ -125,6 +126,54 @@ final class GalleryViewController: UIViewController {
             .disposed(by: rx_disposeBag)
     }
 
+    private func bindOrderBySegmenetedControl() {
+        viewModel
+            .orderBy
+            .asDriver()
+            .map { order in
+                switch order {
+                case .byCreatedDate:
+                    return 0
+                case .byPublishDate:
+                    return 1
+                }
+            }
+            .drive(segmentedControl.rx.selectedSegmentIndex)
+            .disposed(by: rx_disposeBag)
+
+        segmentedControl.rx
+            .selectedSegmentIndex
+            .map { (index: Int) -> GalleryOrder in
+                switch index {
+                case 0:
+                    return .byCreatedDate
+                default:
+                    return .byPublishDate
+                }
+            }
+            .bind(to: viewModel.orderBy)
+            .disposed(by: rx_disposeBag)
+    }
+
+    private func bindErrorMessages() {
+        viewModel
+            .errorMessage
+            .map { Message(title: $0, textColor: .white, backgroundColor: .red, images: nil) }
+            .drive(onNext: { [weak self] message in
+                guard let navigationController = self?.navigationController else { return }
+                Whisper.show(whisper: message, to: navigationController, action: .show)
+            })
+            .disposed(by: rx_disposeBag)
+    }
+
+
+    private func bindTableViewData() {
+        viewModel
+            .photos
+            .map { [GallerySectionModel(items: $0)] }
+            .drive(tableView.rx.items(dataSource: dataSource))
+            .disposed(by: rx_disposeBag)
+    }
 
     private func configurePullToRefreshIndicator() {
         let pullToRefreshControl = UIRefreshControl()
