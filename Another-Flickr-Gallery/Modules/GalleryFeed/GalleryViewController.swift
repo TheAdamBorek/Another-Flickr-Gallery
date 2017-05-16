@@ -12,11 +12,18 @@ import NSObject_Rx
 import Whisper
 
 final class GalleryViewController: UIViewController {
+    private enum Strings {
+        static let orderByCreatedDate = NSLocalizedString("Created date", comment: "")
+        static let orderByPublishDate = NSLocalizedString("Publish date", comment: "")
+    }
+
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView! {
         didSet {
             activityIndicator.color = .gray
         }
     }
+
+    @IBOutlet private weak var segmentedControl: UISegmentedControl!
     private weak var refreshControl: UIRefreshControl!
     @IBOutlet private weak var tableView: UITableView! {
         didSet {
@@ -44,6 +51,7 @@ final class GalleryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSearchBar()
+        setupTranslations()
         configureDataSource()
         bindWithViewModel()
     }
@@ -68,14 +76,19 @@ final class GalleryViewController: UIViewController {
 
     private func bindSearchBarWithViewModel(_ searchBar: UISearchBar) {
         searchBar.rx.cancelButtonClicked
-            .subscribe(onNext: { [unowned searchBar] in
-                searchBar.resignFirstResponder()
-            })
-            .disposed(by: rx_disposeBag)
+                .subscribe(onNext: { [unowned searchBar] in
+                    searchBar.resignFirstResponder()
+                })
+                .disposed(by: rx_disposeBag)
 
         searchBar.rx.text.orEmpty
-            .bind(to: viewModel.didChangeTagsQuery)
-            .disposed(by: rx_disposeBag)
+                .bind(to: viewModel.didChangeTagsQuery)
+                .disposed(by: rx_disposeBag)
+    }
+
+    private func setupTranslations() {
+        segmentedControl.setTitle(Strings.orderByCreatedDate, forSegmentAt: 0)
+        segmentedControl.setTitle(Strings.orderByPublishDate, forSegmentAt: 1)
     }
 
     private func configureDataSource() {

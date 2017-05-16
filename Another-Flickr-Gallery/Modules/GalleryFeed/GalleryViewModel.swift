@@ -11,9 +11,15 @@ import RxSwift
 import RxCocoa
 import RxSwiftExt
 
+enum GalleryOrder {
+    case byCreatedDate
+    case byPublishDate
+}
+
 protocol GalleryViewModeling {
     var didChangeTagsQuery: AnyObserver<String> { get }
     var didPullToRefresh: AnyObserver<Void> { get }
+    var orderBy: Variable<GalleryOrder> { get }
 
     var photos: Driver<[FlickrCellViewModeling]> { get }
     var errorMessage: Driver<String> { get }
@@ -25,6 +31,7 @@ struct GalleryViewModel: GalleryViewModeling {
         static let generalErrorMessage = NSLocalizedString("Oops! An error has occurred. Try again later!", comment: "Unknown error message")
     }
 
+    let orderBy = Variable(GalleryOrder.byCreatedDate)
     let isLoading: Driver<Bool>
 
     fileprivate let _didChangeTagsQuery = PublishSubject<String>()
