@@ -12,6 +12,7 @@ import RxCocoa
 import RxSwiftExt
 
 protocol GalleryViewModeling {
+    var didChangeTagsQuery: AnyObserver<String> { get }
     var didPullToRefresh: AnyObserver<Void> { get }
 
     var photos: Driver<[FlickrCellViewModeling]> { get }
@@ -25,22 +26,41 @@ struct GalleryViewModel: GalleryViewModeling {
     }
 
     let isLoading: Driver<Bool>
+
+    fileprivate let _didChangeTagsQuery = PublishSubject<String>()
     fileprivate let _didPullToRefresh = PublishSubject<Void>()
     private let photosResult: Observable<Event<[PhotoMeta]>>
 
-    init(photosProvider: PhotosMetaProviding = GetFlickrPublicGalleryUseCase()) {
+    init(photosProvider: PhotosMetaProviding = GetFlickrPublicGalleryUseCase(),
+         timeBasedActionsScheduler: SchedulerType = MainScheduler.instance) {
         let activityTracker = ActivityTracker()
-        isLoading = activityTracker.asDriver()
 
-        photosResult = _didPullToRefresh
-                .startWith(())
-                .flatMap {
-                    photosProvider
-                            .photos
-                            .trackActivity(with: activityTracker)
-                            .materialize()
-                }
-                .shareReplay(1)
+        let delayedTagsQuery = _didChangeTagsQuery
+            .debounce(0.3, scheduler: timeBasedActionsScheduler)
+
+        let photosRequest = Observable
+            .of(delayedTagsQuery, _didPullToRefresh.mapTo(""))
+            .merge()
+            .startWith("")
+            .flatMapLatest { tagsQuery in
+                photosProvider
+                    .photos(withTags: tagsQuery)
+                    .trackActivity(with: activityTracker)
+                    .materialize()
+            }
+
+        let clearPhotosOnQueryChange: Observable<Event<[PhotoMeta]>> = _didChangeTagsQuery.mapTo(.next([]))
+
+        photosResult = Observable.of(photosRequest, clearPhotosOnQueryChange)
+            .merge()
+            .shareReplay(1)
+
+        let startLoadingAnimationAtQueryChange: Observable<Bool> = _didChangeTagsQuery.mapTo(true)
+        isLoading = Observable
+            .of(startLoadingAnimationAtQueryChange, activityTracker.asObservable())
+            .merge()
+            .distinctUntilChanged()
+            .asDriver(onError: .justComplete)
     }
 
     var photos: Driver<[FlickrCellViewModeling]> {
@@ -62,8 +82,8 @@ extension GalleryViewModel {
     var didPullToRefresh: AnyObserver<Void> {
         return _didPullToRefresh.asObserver()
     }
-}
 
-protocol PhotosMetaProviding {
-    var photos: Observable<[PhotoMeta]> { get }
+    var didChangeTagsQuery: AnyObserver<String> {
+        return _didChangeTagsQuery.asObserver()
+    }
 }

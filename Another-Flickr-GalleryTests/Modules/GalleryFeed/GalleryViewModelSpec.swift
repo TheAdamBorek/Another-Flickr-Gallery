@@ -21,8 +21,8 @@ final class GalleryViewModelSpec: QuickSpec {
             var photosProviderMock: PhotosProvidingMock!
             var disposeBag = DisposeBag()
 
-            func recreateSubjectUnderTest() {
-                subject = GalleryViewModel(photosProvider: photosProviderMock)
+            func recreateSubjectUnderTest(using scheduler: SchedulerType = MainScheduler.instance) {
+                subject = GalleryViewModel(photosProvider: photosProviderMock, timeBasedActionsScheduler: scheduler)
             }
 
             beforeEach {
@@ -81,6 +81,10 @@ final class GalleryViewModelSpec: QuickSpec {
                     photosProviderMock.givenPhotos = testScheduler.createColdObservable([next(100, [PhotoMeta.fake]), completed(100)]).asObservable()
                     driveOnScheduler(testScheduler) { recreateSubjectUnderTest() }
 
+                    testScheduler.scheduleAt(400) {
+                        subject.didPullToRefresh.onNext(())
+                    }
+
                     let observer = testScheduler.createObserver(Bool.self)
                     subject.photos.drive().disposed(by: disposeBag)
 
@@ -89,7 +93,55 @@ final class GalleryViewModelSpec: QuickSpec {
 
                     XCTAssertEqual(observer.events, [
                         next(0, true),
-                        next(100, false)
+                        next(100, false),
+                        next(400, true),
+                        next(500, false)
+                        ])
+                }
+            }
+
+            describe("changing the tags query") {
+                it("clears current photos set & request for new items") {
+                    let testScheduler = TestScheduler(initialClock: 0, simulateProcessingDelay: false)
+                    photosProviderMock.givenPhotos = testScheduler.createColdObservable([next(100, [PhotoMeta.fake]), completed(100)]).asObservable()
+                    driveOnScheduler(testScheduler) { recreateSubjectUnderTest(using: testScheduler) }
+
+                    let observer = testScheduler.createObserver(Int.self)
+                    let photosCount = subject.photos.map { return $0.count }
+
+                    photosCount.drive(observer).disposed(by: disposeBag)
+                    testScheduler.scheduleAt(800) {
+                        subject.didChangeTagsQuery.onNext("Dummy")
+                    }
+                    testScheduler.start()
+
+                    XCTAssertEqual(observer.events, [
+                        next(100, 1),
+                        next(800, 0),
+                        next(900, 1)
+                        ])
+                }
+
+                it("changes the refreshing state") {
+                    let testScheduler = TestScheduler(initialClock: 0, simulateProcessingDelay: false)
+                    photosProviderMock.givenPhotos = testScheduler.createColdObservable([next(100, [PhotoMeta.fake]), completed(100)]).asObservable()
+                    driveOnScheduler(testScheduler) { recreateSubjectUnderTest(using: testScheduler) }
+
+                    testScheduler.scheduleAt(400) {
+                        subject.didChangeTagsQuery.onNext(("Dummy"))
+                    }
+
+                    let observer = testScheduler.createObserver(Bool.self)
+                    subject.photos.drive().disposed(by: disposeBag)
+
+                    subject.isLoading.drive(observer).disposed(by: disposeBag)
+                    testScheduler.start()
+
+                    XCTAssertEqual(observer.events, [
+                        next(0, true),
+                        next(100, false),
+                        next(400, true),
+                        next(500, false)
                         ])
                 }
             }
@@ -101,8 +153,9 @@ final class PhotosProvidingMock: PhotosMetaProviding {
     var didReceivePhotosCount = 0
     var givenPhotos: Observable<[PhotoMeta]> = .just(PhotoMeta.fakes(count: 5))
 
-    var photos: Observable<[PhotoMeta]> {
+    func photos(withTags tags: String) -> Observable<[PhotoMeta]> {
         return Observable.deferred {
+
             self.didReceivePhotosCount += 1
             return self.givenPhotos
         }

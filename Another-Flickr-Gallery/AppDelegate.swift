@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 
 @UIApplicationMain
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
     private let window: UIWindow = {
         let window = UIWindow()
@@ -18,9 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        window.rootViewController = GalleryViewController()
+        window.rootViewController = UINavigationController(rootViewController: GalleryViewController())
         window.makeKeyAndVisible()
         return true
     }
 }
-

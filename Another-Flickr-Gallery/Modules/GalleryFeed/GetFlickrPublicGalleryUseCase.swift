@@ -6,6 +6,10 @@
 import Foundation
 import RxSwift
 
+protocol PhotosMetaProviding {
+    func photos(withTags tags: String) -> Observable<[PhotoMeta]>
+}
+
 final class GetFlickrPublicGalleryUseCase: PhotosMetaProviding {
     private let apiClient: DecodableAPIConnection
 
@@ -13,8 +17,18 @@ final class GetFlickrPublicGalleryUseCase: PhotosMetaProviding {
         self.apiClient = apiClient
     }
 
-    var photos: Observable<[PhotoMeta]> {
+    func photos(withTags tagsQuery: String) -> Observable<[PhotoMeta]> {
+        let tags = self.tags(from: tagsQuery)
+        let publicFeedRequest = GetPublicFeed(tags: tags)
         return apiClient
-            .send(GetPublicFeed(), jsonRootKey: "items")
+                .send(publicFeedRequest, jsonRootKey: "items")
+    }
+
+    private func tags(from query: String) -> [String] {
+        var tags = [String]()
+        if !query.isEmpty(options: .trimBeforeChecking) {
+            tags = query.components(separatedBy: " ")
+        }
+        return tags
     }
 }

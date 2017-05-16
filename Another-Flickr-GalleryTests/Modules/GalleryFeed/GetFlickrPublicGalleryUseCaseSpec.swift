@@ -44,7 +44,7 @@ final class GetFlickrPublicGalleryUseCaseSpec: QuickSpec {
                               publishedAt: dateInUTC(year: 2017, month: 5, day: 15, hour: 16, minutes: 3, seconds: 31))
                 ]
 
-                let photos = try! subject.photos.toBlocking().first()!
+                let photos = try! subject.photos(withTags: "").toBlocking().first()!
 
                 expect(photos) == expectedPhotos
             }

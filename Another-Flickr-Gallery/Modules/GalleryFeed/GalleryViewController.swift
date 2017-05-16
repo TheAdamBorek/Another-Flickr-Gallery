@@ -9,8 +9,14 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 import NSObject_Rx
+import Whisper
 
 final class GalleryViewController: UIViewController {
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView! {
+        didSet {
+            activityIndicator.color = .gray
+        }
+    }
     private weak var refreshControl: UIRefreshControl!
     @IBOutlet private weak var tableView: UITableView! {
         didSet {
@@ -37,8 +43,39 @@ final class GalleryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureSearchBar()
         configureDataSource()
         bindWithViewModel()
+    }
+
+    private func configureSearchBar() {
+        let searchBar = UISearchBar()
+        navigationItem.titleView = searchBar
+        configureCancelSearchButtonVisibility(searchBar)
+        bindSearchBarWithViewModel(searchBar)
+    }
+
+    private func configureCancelSearchButtonVisibility(_ searchBar: UISearchBar) {
+        let didStartWriting = searchBar.rx.textDidBeginEditing
+        let didEndWriting = searchBar.rx.textDidEndEditing
+        let isEditing = Observable.of(didStartWriting.mapTo(true), didEndWriting.mapTo(false)).merge()
+
+        isEditing.subscribe(onNext: { [unowned searchBar] isEditing in
+            searchBar.setShowsCancelButton(isEditing, animated: true)
+        })
+            .disposed(by: rx_disposeBag)
+    }
+
+    private func bindSearchBarWithViewModel(_ searchBar: UISearchBar) {
+        searchBar.rx.cancelButtonClicked
+            .subscribe(onNext: { [unowned searchBar] in
+                searchBar.resignFirstResponder()
+            })
+            .disposed(by: rx_disposeBag)
+
+        searchBar.rx.text.orEmpty
+            .bind(to: viewModel.didChangeTagsQuery)
+            .disposed(by: rx_disposeBag)
     }
 
     private func configureDataSource() {
@@ -50,6 +87,8 @@ final class GalleryViewController: UIViewController {
     }
 
     private func bindWithViewModel() {
+        bindLoading()
+
         viewModel
                 .photos
                 .map { [GallerySectionModel(items: $0)] }
@@ -57,13 +96,35 @@ final class GalleryViewController: UIViewController {
                 .disposed(by: rx_disposeBag)
 
         viewModel
-                .isLoading
-                .filter { !$0 }
-                .drive(onNext: { [refreshControl] _ in
-                    refreshControl?.endRefreshing()
+                .errorMessage
+                .map { Message(title: $0, textColor: .white, backgroundColor: .red, images: nil) }
+                .drive(onNext: { [weak self] message in
+                    guard let navigationController = self?.navigationController else { return }
+                    Whisper.show(whisper: message, to: navigationController, action: .show)
                 })
                 .disposed(by: rx_disposeBag)
     }
+
+    private func bindLoading() {
+        viewModel
+            .isLoading
+            .filter { !$0 }
+            .drive(onNext: { [refreshControl] _ in
+                refreshControl?.endRefreshing()
+            })
+            .disposed(by: rx_disposeBag)
+
+        viewModel
+            .isLoading
+            .filter { [weak self] isLoading in
+                let isAnimateRefreshing = self?.refreshControl.isRefreshing ?? false
+                let dontShowMainLoadingWhenRefreshingIsAnimating = !(isLoading && isAnimateRefreshing)
+                return dontShowMainLoadingWhenRefreshingIsAnimating
+            }
+            .drive(activityIndicator.rx.isAnimating)
+            .disposed(by: rx_disposeBag)
+    }
+
 
     private func configurePullToRefreshIndicator() {
         let pullToRefreshControl = UIRefreshControl()
@@ -75,7 +136,6 @@ final class GalleryViewController: UIViewController {
             .map { [unowned pullToRefreshControl] in
                 return pullToRefreshControl.isRefreshing
             }
-
 
         isRefreshing
             .filter { $0 }
