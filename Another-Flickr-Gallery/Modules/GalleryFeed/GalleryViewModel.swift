@@ -41,7 +41,7 @@ struct GalleryViewModel: GalleryViewModeling {
             .of(delayedTagsQuery, _didPullToRefresh.mapTo(""))
             .merge()
             .startWith("")
-            .flatMap { tagsQuery in
+            .flatMapLatest { tagsQuery in
                 photosProvider
                     .photos(withTags: tagsQuery)
                     .trackActivity(with: activityTracker)

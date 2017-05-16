@@ -9,6 +9,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 import NSObject_Rx
+import Whisper
 
 final class GalleryViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView! {
@@ -86,13 +87,22 @@ final class GalleryViewController: UIViewController {
     }
 
     private func bindWithViewModel() {
+        bindLoading()
+
         viewModel
                 .photos
                 .map { [GallerySectionModel(items: $0)] }
                 .drive(tableView.rx.items(dataSource: dataSource))
                 .disposed(by: rx_disposeBag)
 
-        bindLoading()
+        viewModel
+                .errorMessage
+                .map { Message(title: $0, textColor: .white, backgroundColor: .red, images: nil) }
+                .drive(onNext: { [weak self] message in
+                    guard let navigationController = self?.navigationController else { return }
+                    Whisper.show(whisper: message, to: navigationController, action: .show)
+                })
+                .disposed(by: rx_disposeBag)
     }
 
     private func bindLoading() {
