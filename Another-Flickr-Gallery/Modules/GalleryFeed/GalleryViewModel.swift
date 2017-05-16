@@ -14,13 +14,26 @@ import RxSwiftExt
 enum GalleryOrder {
     case byCreatedDate
     case byPublishDate
+
+    func order(lhs: PhotoMeta, rhs: PhotoMeta) -> Bool {
+        return orderByProperty(lhs) > orderByProperty(rhs)
+    }
+
+    private func orderByProperty(_ photo: PhotoMeta) -> Date {
+        switch self {
+        case .byCreatedDate:
+            return  photo.createdAt
+        case .byPublishDate:
+            return photo.publishedAt
+        }
+    }
 }
 
 protocol GalleryViewModeling {
     var didChangeTagsQuery: AnyObserver<String> { get }
     var didPullToRefresh: AnyObserver<Void> { get }
-    var orderBy: Variable<GalleryOrder> { get }
 
+    var orderBy: Variable<GalleryOrder> { get }
     var photos: Driver<[FlickrCellViewModeling]> { get }
     var errorMessage: Driver<String> { get }
     var isLoading: Driver<Bool> { get }
@@ -46,7 +59,7 @@ struct GalleryViewModel: GalleryViewModeling {
             .debounce(0.3, scheduler: timeBasedActionsScheduler)
 
         let photosRequest = Observable
-            .of(delayedTagsQuery, _didPullToRefresh.mapTo(""))
+            .of(delayedTagsQuery, _didPullToRefresh.withLatestFrom(delayedTagsQuery))
             .merge()
             .startWith("")
             .flatMapLatest { tagsQuery in
@@ -71,10 +84,12 @@ struct GalleryViewModel: GalleryViewModeling {
     }
 
     var photos: Driver<[FlickrCellViewModeling]> {
-        return photosResult
-                .elements()
-                .mapElements { FlickrCellViewModel(photoMeta: $0) }
-                .asDriver(onErrorJustReturn: [])
+        return Observable
+            .combineLatest(photosResult.elements(), orderBy.asObservable()) { photos, orderBy in
+                return photos.sorted(by: orderBy.order)
+            }
+            .mapElements { FlickrCellViewModel(photoMeta: $0) }
+            .asDriver(onErrorJustReturn: [])
     }
 
     var errorMessage: Driver<String> {

@@ -16,9 +16,9 @@ extension ControlProperty where PropertyType: Equatable {
 
         let readingFromVariableDisposable = variable
                 .asObservable()
+                .observeOn(MainScheduler())
                 .distinctUntilChanged()
                 .catchErrorJustComplete()
-                .observeOn(ConcurrentMainScheduler.instance)
                 .bind(to: self)
 
         return Disposables.create(readingFromVariableDisposable, writeToVariableDisposable)
