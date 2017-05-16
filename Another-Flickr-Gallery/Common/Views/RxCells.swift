@@ -6,6 +6,7 @@
 import Foundation
 import UIKit
 import NSObject_Rx
+import RxSwift
 
 class RxTableViewCell: UITableViewCell {
     override func prepareForReuse() {

@@ -4,6 +4,11 @@ PODS:
     - Runes (>= 4.0.0)
   - Curry (3.0.0)
   - Fakery (2.0.0)
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
+    - FBSnapshotTestCase/Core
   - Kingfisher (3.7.2)
   - Moya/Core (8.0.4):
     - Alamofire (~> 4.1)
@@ -40,6 +45,7 @@ DEPENDENCIES:
   - Argo
   - Curry
   - Fakery
+  - FBSnapshotTestCase
   - Kingfisher
   - Moya/RxSwift
   - Nimble
@@ -59,6 +65,7 @@ SPEC CHECKSUMS:
   Argo: 5db06502fc1222d83011f574243089dab25202ff
   Curry: eb3d2c75aec678b3cc7fb2729d2ad6dd121531d1
   Fakery: 97b99c23937d2e025d9135c75e2b17351ccd5031
+  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   Kingfisher: 5ddc4ac715615cc200de9fdc54ab1511061ea650
   Moya: a08bc060c7a44eee27447b239ed33a189b641e2b
   Nimble: 874982b605d4d752fcac6be695d13c502de84b1b
@@ -75,6 +82,6 @@ SPEC CHECKSUMS:
   RxTest: a6fd6e4069face7c6488f96f6c42296b3e44db48
   Whisper: 051f25e704bf8992641ffd28b20d5682ddc5f5d3
 
-PODFILE CHECKSUM: bf8ebbd90227f6b8756934057080511869e80579
+PODFILE CHECKSUM: d0daae0d19d0ed0ded89938ed5e51d39fe816102
 
 COCOAPODS: 1.2.1

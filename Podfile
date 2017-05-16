@@ -28,6 +28,7 @@ target 'Another-Flickr-Gallery' do
     pod 'RxTest'
     pod 'Quick'
     pod 'Nimble'
+    pod 'FBSnapshotTestCase'
   end
 
 end

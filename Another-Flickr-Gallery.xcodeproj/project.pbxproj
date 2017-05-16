@@ -11,9 +11,11 @@
 		1F0FA1478FF9009DC4054C7B /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FAC96BF66AFD4BA199A52 /* GalleryViewController.swift */; };
 		1F0FA2C59AB31887934EBBE1 /* JSONPNormalizationPluginSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FAEFF71DBEE1EEAA83FFA /* JSONPNormalizationPluginSpec.swift */; };
 		1F0FA566B728B8A2500C22BA /* NibHaving.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FA4295D3475879182069C /* NibHaving.swift */; };
+		1F0FA5B03CA00C870CCD427E /* FlickrImageTableViewCellSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FAAD67D1C973A00A14BD3 /* FlickrImageTableViewCellSnapshotTests.swift */; };
 		1F0FA6A14E004DFA50AB6332 /* FlickrImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0FAEE8926F3743C76C0CED /* FlickrImageTableViewCell.xib */; };
 		1F0FA6ECA75803270BC6F2FC /* DecodableAPIClientSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FAD2ABAE066EE173F9F46 /* DecodableAPIClientSpec.swift */; };
 		1F0FA8E5E87F012295634B2C /* GalleryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0FA060E48C3EC1D6D70259 /* GalleryViewController.xib */; };
+		1F0FA9BFCB31FFCE657FAC35 /* SnapshotTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FA1721EE4CDA9B7BC24DB /* SnapshotTestCase.swift */; };
 		1F0FA9C6B5A103251453D657 /* RxCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FAF30C2E2A27BA3D4A034 /* RxCells.swift */; };
 		1F0FA9E32BD2C0A8E9FFE9F4 /* GetPublicFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FAFECFD8287473F147125 /* GetPublicFeed.swift */; };
 		1F0FAACFC7DC3FEE824FD1C6 /* FlickrImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FAF70D8FCEACFB54EFA93 /* FlickrImageTableViewCell.swift */; };
@@ -42,8 +44,11 @@
 /* Begin PBXFileReference section */
 		0CFBBCBEEACCEFBA42EBAF99 /* Pods_Another_Flickr_Gallery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Another_Flickr_Gallery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F0FA060E48C3EC1D6D70259 /* GalleryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GalleryViewController.xib; sourceTree = "<group>"; };
+		1F0FA1721EE4CDA9B7BC24DB /* SnapshotTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotTestCase.swift; sourceTree = "<group>"; };
 		1F0FA3F2868725D6D2418FFE /* Assembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
 		1F0FA4295D3475879182069C /* NibHaving.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibHaving.swift; sourceTree = "<group>"; };
+		1F0FAAD67D1C973A00A14BD3 /* FlickrImageTableViewCellSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrImageTableViewCellSnapshotTests.swift; sourceTree = "<group>"; };
+		1F0FAB25A8B1CA032C3F10E8 /* TestsBridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestsBridgingHeader.h; sourceTree = "<group>"; };
 		1F0FAB308BCB1C5178C26B30 /* Moya+Argo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Moya+Argo.swift"; sourceTree = "<group>"; };
 		1F0FAC96BF66AFD4BA199A52 /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		1F0FAD2511DA35C738E12E01 /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
@@ -99,6 +104,14 @@
 				3A4B6D475FF7FDF609CD4ED5 /* Pods-Another-Flickr-GalleryTests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		1F0FA1BF72CD21D7F3F8384D /* GalleryFeed */ = {
+			isa = PBXGroup;
+			children = (
+				1F0FAAD67D1C973A00A14BD3 /* FlickrImageTableViewCellSnapshotTests.swift */,
+			);
+			path = GalleryFeed;
 			sourceTree = "<group>";
 		};
 		1F0FA2558EA413D8197B5927 /* APIConnection */ = {
@@ -181,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				1F0FAAC4C996823A9D624597 /* APIConnection */,
+				1F0FA1BF72CD21D7F3F8384D /* GalleryFeed */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -231,6 +245,8 @@
 			children = (
 				66D990CB1EC986CE00656E15 /* Info.plist */,
 				1F0FAEA041A802434C11E2C7 /* Modules */,
+				1F0FA1721EE4CDA9B7BC24DB /* SnapshotTestCase.swift */,
+				1F0FAB25A8B1CA032C3F10E8 /* TestsBridgingHeader.h */,
 			);
 			path = "Another-Flickr-GalleryTests";
 			sourceTree = "<group>";
@@ -468,6 +484,8 @@
 			files = (
 				1F0FA6ECA75803270BC6F2FC /* DecodableAPIClientSpec.swift in Sources */,
 				1F0FA2C59AB31887934EBBE1 /* JSONPNormalizationPluginSpec.swift in Sources */,
+				1F0FA9BFCB31FFCE657FAC35 /* SnapshotTestCase.swift in Sources */,
+				1F0FA5B03CA00C870CCD427E /* FlickrImageTableViewCellSnapshotTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -618,10 +636,16 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"FB_REFERENCE_IMAGE_DIR=@\\\"$(SOURCE_ROOT)/$(PROJECT_NAME)Test/ReferenceImages\\\"",
+				);
 				INFOPLIST_FILE = "Another-Flickr-GalleryTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.adamborek.Another-Flickr-GalleryTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SOURCE_ROOT)/$(PROJECT_NAME)Tests/TestsBridgingHeader.h";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Another-Flickr-Gallery.app/Another-Flickr-Gallery";
 			};
@@ -637,6 +661,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.adamborek.Another-Flickr-GalleryTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SOURCE_ROOT)/$(PROJECT_NAME)Tests/TestsBridgingHeader.h";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Another-Flickr-Gallery.app/Another-Flickr-Gallery";
 			};
