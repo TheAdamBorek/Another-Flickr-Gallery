@@ -82,7 +82,7 @@ final class GalleryViewController: UIViewController {
                 .disposed(by: rx_disposeBag)
 
         searchBar.rx.text.orEmpty
-                .bind(to: viewModel.didChangeTagsQuery)
+                .bidirectionalBind(with: viewModel.tagsQuery)
                 .disposed(by: rx_disposeBag)
     }
 

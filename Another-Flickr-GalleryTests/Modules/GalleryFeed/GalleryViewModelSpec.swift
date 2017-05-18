@@ -36,9 +36,7 @@ final class GalleryViewModelSpec: QuickSpec {
 
             describe("photos") {
                 it("asks provider for photos") {
-                    subject.photos
-                            .drive()
-                            .disposed(by: disposeBag)
+                    _ = try? subject.photos.toBlocking().first()
                     expect(photosProviderMock.didReceivePhotosCount).to(equal(1))
                 }
 
@@ -60,10 +58,11 @@ final class GalleryViewModelSpec: QuickSpec {
 
             describe("pull to refresh") {
                 it("forces a refresh of photos") {
-                    let testScheduler = TestScheduler(initialClock: 0)
+                    let testScheduler = TestScheduler(initialClock: 0, simulateProcessingDelay: false)
                     photosProviderMock.givenPhotos = testScheduler.createColdObservable([next(100, [PhotoMeta.fake]), completed(100)]).asObservable()
-                    let observer = testScheduler.createObserver([FlickrCellViewModeling].self)
+                    driveOnScheduler(testScheduler) { recreateSubjectUnderTest(using: testScheduler) }
 
+                    let observer = testScheduler.createObserver([FlickrCellViewModeling].self)
                     subject.photos.drive(observer).disposed(by: disposeBag)
 
                     testScheduler.scheduleAt(200) {
@@ -73,13 +72,11 @@ final class GalleryViewModelSpec: QuickSpec {
 
                     expect(observer.events.map { $0.time }) == [100, 300]
                 }
-            }
 
-            describe("isLoading") {
-                it("indicates if there is any action ongoing") {
+                it("changes the refreshing state") {
                     let testScheduler = TestScheduler(initialClock: 0, simulateProcessingDelay: false)
                     photosProviderMock.givenPhotos = testScheduler.createColdObservable([next(100, [PhotoMeta.fake]), completed(100)]).asObservable()
-                    driveOnScheduler(testScheduler) { recreateSubjectUnderTest() }
+                    driveOnScheduler(testScheduler) { recreateSubjectUnderTest(using: testScheduler) }
 
                     testScheduler.scheduleAt(400) {
                         subject.didPullToRefresh.onNext(())
@@ -92,10 +89,31 @@ final class GalleryViewModelSpec: QuickSpec {
                     testScheduler.start()
 
                     XCTAssertEqual(observer.events, [
+                        next(0, false),
                         next(0, true),
                         next(100, false),
                         next(400, true),
                         next(500, false)
+                        ])
+                }
+            }
+
+            describe("isLoading") {
+                it("indicates if there is any action ongoing") {
+                    let testScheduler = TestScheduler(initialClock: 0, simulateProcessingDelay: false)
+                    photosProviderMock.givenPhotos = testScheduler.createColdObservable([next(100, [PhotoMeta.fake]), completed(100)]).asObservable()
+                    driveOnScheduler(testScheduler) { recreateSubjectUnderTest(using: testScheduler) }
+
+                    let observer = testScheduler.createObserver(Bool.self)
+                    subject.photos.drive().disposed(by: disposeBag)
+
+                    subject.isLoading.drive(observer).disposed(by: disposeBag)
+                    testScheduler.start()
+
+                    XCTAssertEqual(observer.events, [
+                        next(0, false),
+                        next(0, true),
+                        next(100, false)
                         ])
                 }
             }
@@ -111,7 +129,7 @@ final class GalleryViewModelSpec: QuickSpec {
 
                     photosCount.drive(observer).disposed(by: disposeBag)
                     testScheduler.scheduleAt(800) {
-                        subject.didChangeTagsQuery.onNext("Dummy")
+                        subject.tagsQuery.value = "new"
                     }
                     testScheduler.start()
 
@@ -128,7 +146,7 @@ final class GalleryViewModelSpec: QuickSpec {
                     driveOnScheduler(testScheduler) { recreateSubjectUnderTest(using: testScheduler) }
 
                     testScheduler.scheduleAt(400) {
-                        subject.didChangeTagsQuery.onNext(("Dummy"))
+                        subject.tagsQuery.value = "new"
                     }
 
                     let observer = testScheduler.createObserver(Bool.self)
@@ -138,6 +156,7 @@ final class GalleryViewModelSpec: QuickSpec {
                     testScheduler.start()
 
                     XCTAssertEqual(observer.events, [
+                        next(0, false),
                         next(0, true),
                         next(100, false),
                         next(400, true),

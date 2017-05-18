@@ -17,11 +17,12 @@ final class BidirectionalBindTest: XCTestCase {
         let subject = BehaviorSubject(value: "subject")
         let controlProperty = ControlProperty(values: subject.asObservable(), valueSink: subject.asObserver())
 
-        _ = controlProperty.bidirectionalBind(with: variable)
+        let subscription = controlProperty.bidirectionalBind(with: variable)
 
         XCTAssertEqual(variable.value, "variable")
         let subjectValue = try! subject.asObservable().toBlocking().first()!
         XCTAssertEqual(subjectValue, "variable")
+        subscription.dispose()
     }
 
     func test_propagateValuesFromControlPropertyToVariable() {
@@ -29,9 +30,10 @@ final class BidirectionalBindTest: XCTestCase {
         let subject = BehaviorSubject(value: "subject")
         let controlProperty = ControlProperty(values: subject.asObservable(), valueSink: subject.asObserver())
 
-        _ = controlProperty.bidirectionalBind(with: variable)
+        let subscription = controlProperty.bidirectionalBind(with: variable)
 
         subject.onNext("The message")
         XCTAssertEqual(variable.value, "The message")
+        subscription.dispose()
     }
 }

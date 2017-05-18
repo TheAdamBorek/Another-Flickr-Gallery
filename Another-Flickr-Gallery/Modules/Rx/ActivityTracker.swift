@@ -50,7 +50,7 @@ public class ActivityTracker: SharedSequenceConvertibleType {
 
     private func decrement() {
         _lock.lock()
-        _variable.value += 1
+        _variable.value -= 1
         _lock.unlock()
     }
 

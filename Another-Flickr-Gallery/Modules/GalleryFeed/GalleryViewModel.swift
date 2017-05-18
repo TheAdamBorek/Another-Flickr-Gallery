@@ -30,7 +30,7 @@ enum GalleryOrder {
 }
 
 protocol GalleryViewModeling {
-    var didChangeTagsQuery: AnyObserver<String> { get }
+    var tagsQuery: Variable<String> { get }
     var didPullToRefresh: AnyObserver<Void> { get }
 
     var orderBy: Variable<GalleryOrder> { get }
@@ -47,21 +47,20 @@ struct GalleryViewModel: GalleryViewModeling {
     let orderBy = Variable(GalleryOrder.byCreatedDate)
     let isLoading: Driver<Bool>
 
-    fileprivate let _didChangeTagsQuery = PublishSubject<String>()
+    let tagsQuery = Variable("")
     fileprivate let _didPullToRefresh = PublishSubject<Void>()
     private let photosResult: Observable<Event<[PhotoMeta]>>
 
     init(photosProvider: PhotosMetaProviding = GetFlickrPublicGalleryUseCase(),
-         timeBasedActionsScheduler: SchedulerType = MainScheduler.instance) {
+         timeBasedActionsScheduler: SchedulerType = MainScheduler.asyncInstance) {
         let activityTracker = ActivityTracker()
 
-        let delayedTagsQuery = _didChangeTagsQuery
+        let delayedTagsQuery = tagsQuery.asObservable()
             .debounce(0.3, scheduler: timeBasedActionsScheduler)
 
         let photosRequest = Observable
             .of(delayedTagsQuery, _didPullToRefresh.withLatestFrom(delayedTagsQuery))
             .merge()
-            .startWith("")
             .flatMapLatest { tagsQuery in
                 photosProvider
                     .photos(withTags: tagsQuery)
@@ -69,13 +68,17 @@ struct GalleryViewModel: GalleryViewModeling {
                     .materialize()
             }
 
-        let clearPhotosOnQueryChange: Observable<Event<[PhotoMeta]>> = _didChangeTagsQuery.mapTo(.next([]))
+        let queryDidChange = tagsQuery.asObservable()
+            .skip(1)
+
+        let clearPhotosOnQueryChange: Observable<Event<[PhotoMeta]>> = queryDidChange
+            .mapTo(.next([]))
 
         photosResult = Observable.of(photosRequest, clearPhotosOnQueryChange)
             .merge()
             .shareReplay(1)
 
-        let startLoadingAnimationAtQueryChange: Observable<Bool> = _didChangeTagsQuery.mapTo(true)
+        let startLoadingAnimationAtQueryChange: Observable<Bool> = queryDidChange.mapTo(true)
         isLoading = Observable
             .of(startLoadingAnimationAtQueryChange, activityTracker.asObservable())
             .merge()
@@ -103,9 +106,5 @@ struct GalleryViewModel: GalleryViewModeling {
 extension GalleryViewModel {
     var didPullToRefresh: AnyObserver<Void> {
         return _didPullToRefresh.asObserver()
-    }
-
-    var didChangeTagsQuery: AnyObserver<String> {
-        return _didChangeTagsQuery.asObserver()
     }
 }
