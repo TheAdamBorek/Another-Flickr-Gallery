@@ -1,0 +1,4 @@
+
+lane :test do
+  scan(scheme: "Another-Flickr-GalleryTests")
+end
