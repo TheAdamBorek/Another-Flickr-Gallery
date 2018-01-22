@@ -76,7 +76,7 @@ final class GalleryViewController: UIViewController {
 
     private func bindSearchBarWithViewModel(_ searchBar: UISearchBar) {
         searchBar.rx.cancelButtonClicked
-                .subscribe(onNext: { [unowned searchBar] in
+                .subscribe(onNext: { [weak searchBar] in
                     searchBar.resignFirstResponder()
                 })
                 .disposed(by: rx_disposeBag)
@@ -118,7 +118,7 @@ final class GalleryViewController: UIViewController {
         viewModel
             .isLoading
             .filter { [weak self] isLoading in
-                let isAnimateRefreshing = self?.refreshControl.isRefreshing ?? false
+                let isAnimateRefreshing = self!.refreshControl.isRefreshing ?? false
                 let dontShowMainLoadingWhenRefreshingIsAnimating = !(isLoading && isAnimateRefreshing)
                 return dontShowMainLoadingWhenRefreshingIsAnimating
             }
