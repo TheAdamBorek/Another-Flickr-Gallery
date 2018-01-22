@@ -21,7 +21,7 @@ final class GetFlickrPublicGalleryUseCase: PhotosMetaProviding {
         let tags = self.tags(from: tagsQuery)
         let publicFeedRequest = GetPublicFeed(tags: tags)
         return apiClient
-                .send(publicFeedRequest, jsonRootKey: "item")
+                .send(publicFeedRequest, jsonRootKey: "itemss")
     }
 
     private func tags(from query: String) -> [String] {
