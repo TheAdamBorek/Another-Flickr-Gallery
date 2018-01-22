@@ -118,7 +118,8 @@ final class GalleryViewController: UIViewController {
         viewModel
             .isLoading
             .filter { [weak self] isLoading in
-                let isAnimateRefreshing = self!.refreshControl.isRefreshing ?? false
+                guard let `self` = self else { return }
+                let isAnimateRefreshing = self.refreshControl.isRefreshing ?? false
                 let dontShowMainLoadingWhenRefreshingIsAnimating = !(isLoading && isAnimateRefreshing)
                 return dontShowMainLoadingWhenRefreshingIsAnimating
             }
