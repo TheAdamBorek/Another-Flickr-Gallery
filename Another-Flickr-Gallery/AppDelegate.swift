@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.frame = UIScreen.main.bounds
         return window
     }()
-
+ 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         let navigationController = UINavigationController(rootViewController: GalleryViewController())
         navigationController.navigationBar.isTranslucent = false
